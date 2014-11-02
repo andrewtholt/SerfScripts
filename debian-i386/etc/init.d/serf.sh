@@ -51,13 +51,13 @@ start() {
 
         nohup $DAEMON $DAEMON_OPTS > /dev/null &
         sleep 2
-        ps -ef | grep serf
         pgrep -f "$NAME agent" > /var/run/serf.pid
 }
  
 stop() {
         start-stop-daemon --stop --pidfile $PID \
             --retry 5 --oknodo --exec $DAEMON
+        rm -f $PID
 }
  
 case "$1" in
@@ -83,13 +83,12 @@ case "$1" in
  
     reload)
         log_daemon_msg "Reloading $DESC configuration" "$NAME"
-        start-stop-daemon --stop --signal HUP --quiet --pidfile $PID \
-            --oknodo --exec $DAEMON
+        kill -1 $(cat /var/run/${NAME}.pid)
         log_end_msg $?
         ;;
  
     status)
-        status_of_proc -p $PID "$DAEMON" serf
+        $DAEMON members
         ;;
  
     *)
