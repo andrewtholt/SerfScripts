@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "Creating serf amd64 package ..."
+
+dpkg -b ./debian-i386 .
+
+echo "... done"
+
+
