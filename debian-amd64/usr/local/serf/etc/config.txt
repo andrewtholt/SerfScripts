@@ -1,0 +1,10 @@
+{
+    "tags": {
+        "role": "portal",
+            "location": "house"
+    },
+
+    "event_handlers": [
+        "user=/usr/local/serf/bin/handler.sh"
+    ]
+}
