@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ ! -f /tmp/tst.txt ] && touch /tmp/txt.txt
+[ ! -f /tmp/tst.txt ] && touch /tmp/tst.txt
 
 /usr/bin/env >> /tmp/tst.txt
 date  >> /tmp/tst.txt
