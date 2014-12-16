@@ -1,17 +1,22 @@
 #!/usr/bin/ruby
 
 require 'json'
+require 'rbconfig'
 
-contents = File.read('config.json')
-
+contents = STDIN.read()
 
 my_hash = JSON.parse( contents )
 
-my_hash["tags"]["arch"] = "x86_64"
+tst =  RbConfig::CONFIG
 
-out = JSON.generate( my_hash )
+data = JSON.pretty_generate( tst )
+File.write("fred.json",data)
 
-print out
+my_hash["tags"]["arch"] = RbConfig::CONFIG["host_cpu"]
+my_hash["tags"]["os"]   = RbConfig::CONFIG["target_os"]
 
-File.write('new.json', out )
+# out = JSON.generate( my_hash )
+out = JSON.pretty_generate( my_hash )
+
+STDOUT.write(out + "\n" )
 
